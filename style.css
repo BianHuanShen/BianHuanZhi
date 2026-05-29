@@ -249,7 +249,8 @@ transition:.3s;
 
 color:var(--cyan);
 
-translate:8px 0;
+transform:
+translate(8px,0);
 
 }
 
@@ -427,6 +428,7 @@ flex-wrap:wrap;
 
 }
 
+.buttons button,
 .buttons a{
 
 display:inline-flex;
@@ -456,6 +458,7 @@ transition:.35s;
 
 }
 
+.buttons button:hover,
 .buttons a:hover{
 
 transform:translateY(-4px);
@@ -467,7 +470,8 @@ rgba(0,213,255,.45);
 
 }
 
-.buttons .secondary{
+.buttons button.secondary,
+.buttons a.secondary{
 
 background:transparent;
 
@@ -518,7 +522,8 @@ rgba(0,0,0,.25);
 
 .card:hover{
 
-translate:0 -8px;
+transform:
+translate(0,-8px);
 
 border-color:
 var(--cyan);
@@ -657,7 +662,8 @@ transition:.35s;
 
 .chapter:hover{
 
-translate:0 -8px;
+transform:
+translate(0,-8px);
 
 box-shadow:
 
@@ -806,7 +812,8 @@ rgba(0,0,0,.25);
 
 .mini-card:hover{
 
-translate:0 -8px;
+transform:
+translate(0,-8px);
 
 border-color:
 var(--gold);
@@ -1132,12 +1139,13 @@ line-height:1.9;
 
 }
 
-button{
+
+.buttons button,
+.chapter-controls button{
 
 width:100%;
 
 }
-
 .chapter-controls{
 
 flex-direction:column;
