@@ -4,17 +4,18 @@
    SCRIPT.JS
 ========================================== */
 
+
 /* ========= LOADER ========= */
 
 window.addEventListener("load", () => {
 
-    setTimeout(() => {
+setTimeout(() => {
 
-        document
-            .getElementById("loader")
-            .classList.add("hide");
+document
+.getElementById("loader")
+?.classList.add("hide");
 
-    }, 1800);
+},1800);
 
 });
 
@@ -22,28 +23,36 @@ window.addEventListener("load", () => {
 /* ========= MOUSE GLOW ========= */
 
 const glow =
-document.getElementById("mouseGlow");
+document.getElementById(
+"mouseGlow"
+);
 
 const root =
 document.documentElement;
 
-window.addEventListener("mousemove", (e) => {
+window.addEventListener(
+"mousemove",
+(e)=>{
 
-    glow.style.left =
-    e.clientX + "px";
+if(glow){
 
-    glow.style.top =
-    e.clientY + "px";
+glow.style.left =
+e.clientX + "px";
 
-    root.style.setProperty(
-        "--mx",
-        e.clientX + "px"
-    );
+glow.style.top =
+e.clientY + "px";
 
-    root.style.setProperty(
-        "--my",
-        e.clientY + "px"
-    );
+}
+
+root.style.setProperty(
+"--mx",
+e.clientX + "px"
+);
+
+root.style.setProperty(
+"--my",
+e.clientY + "px"
+);
 
 });
 
@@ -51,26 +60,33 @@ window.addEventListener("mousemove", (e) => {
 /* ========= SCROLL REVEAL ========= */
 
 const observer =
-new IntersectionObserver((entries) => {
+new IntersectionObserver(
+(entries)=>{
 
-    entries.forEach(entry => {
+entries.forEach(entry=>{
 
-        if (entry.isIntersecting) {
+if(
+entry.isIntersecting
+){
 
-            entry.target
-            .classList.add("active");
+entry.target
+.classList.add(
+"active"
+);
 
-        }
+}
 
-    });
+});
 
 });
 
 document
-.querySelectorAll(".reveal")
-.forEach(el => {
+.querySelectorAll(
+".reveal"
+)
+.forEach(el=>{
 
-    observer.observe(el);
+observer.observe(el);
 
 });
 
@@ -78,31 +94,37 @@ document
 /* ========= COSMIC CANVAS ENGINE ========= */
 
 const canvas =
-document.getElementById("cosmos");
+document.getElementById(
+"cosmos"
+);
 
 const ctx =
-canvas.getContext("2d");
+canvas?.getContext(
+"2d"
+);
 
 function resizeCanvas(){
 
-    canvas.width =
-    window.innerWidth;
+if(!canvas) return;
 
-    canvas.height =
-    window.innerHeight;
+canvas.width =
+window.innerWidth;
+
+canvas.height =
+window.innerHeight;
 
 }
 
 resizeCanvas();
 
 window.addEventListener(
-    "resize",
-    resizeCanvas
+"resize",
+resizeCanvas
 );
 
-const particles = [];
+const particles=[];
 
-const cosmicColors = [
+const cosmicColors=[
 
 "rgba(0,213,255,.75)",
 
@@ -112,176 +134,269 @@ const cosmicColors = [
 
 ];
 
-for(let i = 0; i < 120; i++){
+if(canvas){
 
-    particles.push({
+for(
+let i=0;
+i<120;
+i++
+){
 
-        x:
-        Math.random()*canvas.width,
+particles.push({
 
-        y:
-        Math.random()*canvas.height,
+x:
+Math.random()
+*
+canvas.width,
 
-        r:
-        Math.random()*2.2,
+y:
+Math.random()
+*
+canvas.height,
 
-        s:
-        Math.random()*1.2,
+r:
+Math.random()
+*
+2.2,
 
-        color:
+s:
+Math.random()
+*
+1.2,
 
-        cosmicColors[
-            Math.floor(
-                Math.random()*
-                cosmicColors.length
-            )
-        ]
+color:
 
-    });
+cosmicColors[
+
+Math.floor(
+
+Math.random()
+
+*
+
+cosmicColors.length
+
+)
+
+]
+
+});
+
+}
 
 }
 
 function animateCosmos(){
 
-    ctx.clearRect(
-        0,
-        0,
-        canvas.width,
-        canvas.height
-    );
+if(
+!canvas ||
+!ctx
+) return;
 
-    particles.forEach(p => {
+ctx.clearRect(
 
-        ctx.beginPath();
+0,
+0,
 
-        ctx.fillStyle =
-        p.color;
+canvas.width,
 
-        ctx.arc(
+canvas.height
 
-            p.x,
-            p.y,
-            p.r,
-            0,
-            Math.PI * 2
+);
 
-        );
+particles.forEach(p=>{
 
-        ctx.fill();
+ctx.beginPath();
 
-        p.y += p.s;
+ctx.fillStyle =
+p.color;
 
-        p.x +=
-        Math.sin(
-            p.y * .01
-        ) * .35;
+ctx.arc(
 
-        if(p.y > canvas.height){
+p.x,
 
-            p.y = 0;
+p.y,
 
-            p.x =
-            Math.random()*
-            canvas.width;
+p.r,
 
-        }
+0,
 
-    });
+Math.PI*2
 
-    requestAnimationFrame(
-        animateCosmos
-    );
+);
+
+ctx.fill();
+
+p.y += p.s;
+
+p.x +=
+
+Math.sin(
+p.y*.01
+)
+
+*.35;
+
+if(
+p.y >
+canvas.height
+){
+
+p.y=0;
+
+p.x=
+
+Math.random()
+
+*
+
+canvas.width;
 
 }
 
+});
+
+requestAnimationFrame(
+
+animateCosmos
+
+);
+
+}
+
+if(
+canvas &&
+ctx
+){
+
 animateCosmos();
 
+}
 
-/* ========= READING PROGRESS BAR ========= */
+
+/* ========= READING PROGRESS ========= */
 
 const progressBar =
 document.getElementById(
-    "progressBar"
+"progressBar"
 );
 
 window.addEventListener(
-    "scroll",
-    () => {
+"scroll",
+()=>{
 
-        const scrollTop =
-        document.documentElement
-        .scrollTop;
+if(
+!progressBar
+) return;
 
-        const scrollHeight =
+const scrollTop =
 
-        document.documentElement
-        .scrollHeight -
+document
+.documentElement
+.scrollTop;
 
-        document.documentElement
-        .clientHeight;
+const scrollHeight =
 
-        const progress =
+document
+.documentElement
+.scrollHeight
 
-        (scrollTop /
-        scrollHeight) * 100;
+-
 
-        progressBar.style.width =
+document
+.documentElement
+.clientHeight;
 
-        progress + "%";
+const progress =
 
-    }
-);
+scrollHeight > 0
+
+?
+
+(
+scrollTop
+/
+scrollHeight
+)
+
+*100
+
+:0;
+
+progressBar.style.width =
+
+progress + "%";
+
+});
 
 
-/* ========= BOOKMARK SYSTEM ========= */
+/* ========= BOOKMARK ========= */
 
 const bookmarkBtn =
 document.getElementById(
 "bookmarkBtn"
 );
 
-bookmarkBtn.addEventListener(
+bookmarkBtn
+?.addEventListener(
+
 "click",
-() => {
 
-    bookmarkBtn
-    .classList.toggle(
-        "active"
-    );
+()=>{
 
-    bookmarkBtn.innerText =
+bookmarkBtn
+.classList.toggle(
+"active"
+);
 
-    bookmarkBtn.classList
-    .contains("active")
+bookmarkBtn.innerText =
 
-    ? "★ Saved"
+bookmarkBtn
+.classList
+.contains(
+"active"
+)
 
-    : "☆ Bookmark";
+?
+
+"★ Saved"
+
+:
+
+"☆ Bookmark";
 
 });
 
 
-/* ========= SHARE SYSTEM ========= */
+/* ========= SHARE ========= */
 
 const shareBtn =
 document.getElementById(
 "shareBtn"
 );
 
-shareBtn.addEventListener(
-"click",
-() => {
+shareBtn
+?.addEventListener(
 
-navigator.clipboard.writeText(
+"click",
+
+()=>{
+
+navigator
+.clipboard
+?.writeText(
+
 window.location.href
+
 );
 
 shareBtn.innerText =
 "✓ Copied";
 
-setTimeout(() => {
+setTimeout(()=>{
 
 shareBtn.innerText =
+
 "⤴ Share";
 
 },2000);
@@ -292,25 +407,38 @@ shareBtn.innerText =
 /* ========= CHAPTER NAVIGATION ========= */
 
 document
-.getElementById("nextBtn")
-.addEventListener(
+.getElementById(
+"nextBtn"
+)
+?.addEventListener(
+
 "click",
-() => {
+
+()=>{
 
 alert(
+
 "Next Chapter — Coming Soon."
+
 );
 
 });
 
+
 document
-.getElementById("prevBtn")
-.addEventListener(
+.getElementById(
+"prevBtn"
+)
+?.addEventListener(
+
 "click",
-() => {
+
+()=>{
 
 alert(
+
 "You are already at Chapter 1."
+
 );
 
 });
@@ -322,34 +450,46 @@ const parallaxTargets =
 
 document.querySelectorAll(
 
-".hero-content, .card, .mini-card"
+".hero-content"
 
 );
 
 window.addEventListener(
+
 "mousemove",
-(e) => {
+
+(e)=>{
 
 const x =
 
-(e.clientX /
-window.innerWidth - .5)
+(
+e.clientX
+/
+window.innerWidth
 
-* 12;
+-.5
+)
+
+*12;
 
 const y =
 
-(e.clientY /
-window.innerHeight - .5)
+(
+e.clientY
+/
+window.innerHeight
 
-* 12;
+-.5
+)
+
+*12;
 
 parallaxTargets
-.forEach(el => {
+.forEach(el=>{
 
 el.style.transform =
 
-`translate(${x}px, ${y}px)`;
+`translate(${x}px,${y}px)`;
 
 });
 
