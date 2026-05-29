@@ -427,25 +427,28 @@ flex-wrap:wrap;
 
 }
 
-button{
+.buttons a{
+
+display:inline-flex;
+
+justify-content:center;
+align-items:center;
 
 padding:15px 30px;
 
 background:
 
 linear-gradient(
-
 90deg,
-
 var(--purple),
-
 var(--cyan)
-
 );
 
 border:none;
 
 color:white;
+
+text-decoration:none;
 
 cursor:pointer;
 
@@ -453,9 +456,9 @@ transition:.35s;
 
 }
 
-button:hover{
+.buttons a:hover{
 
-translate:0 -4px;
+transform:translateY(-4px);
 
 box-shadow:
 
@@ -464,7 +467,7 @@ rgba(0,213,255,.45);
 
 }
 
-.secondary{
+.buttons .secondary{
 
 background:transparent;
 
@@ -472,7 +475,6 @@ border:1px solid
 var(--gold);
 
 }
-
 /* ========= PANEL ========= */
 
 .panel{
